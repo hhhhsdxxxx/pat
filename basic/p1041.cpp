@@ -1,22 +1,32 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+typedef unsigned long long long_64;
+
+struct stu{
+	long_64 id;
+	int seat;
+	stu():id(0),seat(0){}
+}; 
+
 int main(){
-	char word[10];
-	int p = 10, cntl(0), cntb(0), cntd(0), cnto(0);
-	while(p--)
-		word[p] = getchar();
-	for(int i = 0; i < 10; ++i){
-		if(word[i] >= 'A' && word[i] <= 'Z' || word[i] >= 'a' && word[i] <= 'z')
-			++cntl;
-		else if(word[i] >= '0' && word[i] <= '9')
-			++cntd;
-		else if(word[i] == ' ' || word[i] == '\n')
-			++cntb;
-		else
-			++cnto;
+	int N;
+	cin >> N;
+	vector<stu> table(N, stu());
+	for(int i = 0; i < N; ++i){
+		long_64 id;
+		int seat1, seat2;
+		cin >> id >> seat1 >> seat2;
+		table[seat1-1].id = id;
+		table[seat1-1].seat = seat2;
 	}
-	printf("letter = %d, blank = %d, digit = %d, other = %d", cntl, cntb, cntd, cnto);
+	cin >> N;
+	while(N--){
+		int k;
+		cin >> k;
+		printf("%014lld %d\n", table[k-1].id, table[k-1].seat);
+	}
 	return 0;
 }

@@ -1,23 +1,24 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 int main(){
-	int price;
-	cin >> price;
-	if(price < 8)
-		cout << "count = 0\n";
-	else {
-		price -= 8;
-		int cnt = 0;
-		for(int i = price/5; i >= 0; --i){
-			for(int j = (price-5*i)/2; j >= 0; --j){
-				int k = price-5*i-2*j+1;
-				printf("fen5:%d, fen2:%d, fen1:%d, total:%d\n", i+1, j+1, k, i+j+k+2);
-				cnt++;
-			}
+	string in;
+	getline(cin, in);
+	vector<int> cnt(128, 0);
+	for(unsigned int i = 0; i < in.length(); ++i)
+		++cnt[in[i]];
+	for(int i = 'a'; i <= 'z'; ++i)
+		cnt[i] += cnt[i+'A'-'a'];
+	int maxn = 0, index = 0;
+	for(int i = 'a'; i <= 'z'; ++i){
+		if(cnt[i] > maxn){
+			index = i;
+			maxn = cnt[i];
 		}
-		printf("count = %d\n", cnt);
 	}
+	cout << char(index) << " " << cnt[index] << endl;
 	return 0;
 }

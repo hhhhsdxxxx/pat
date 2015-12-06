@@ -1,29 +1,58 @@
 #include <iostream>
-#include <cstring>
+#include <string>
 
 using namespace std;
 
 int main(){
-	int cnt[10];
-	memset(cnt, 0, sizeof(int)*10);
-	for(int i = 0; i < 10; ++i)
-		cin >> cnt[i];
-	int i;
-	for(i = 1; i < 10; ++i){
-		if(cnt[i]){
-			cout << i;
-			--cnt[i];
+	int cnt[6] = {0};
+	string in;
+	cin >> in;
+	for(unsigned int i = 0; i < in.length(); ++i){
+		switch(in[i]){
+			case 'P':
+			++cnt[0];
+			break;
+			case 'A':
+			++cnt[1];
+			break;
+			case 'T':
+			++cnt[2];
+			break;
+			case 'e':
+			++cnt[3];
+			break;
+			case 's':
+			++cnt[4];
+			break;
+			case 't':
+			++cnt[5];
+			break;
+			default:
 			break;
 		}
-	} 
-	if(i == 10)
-		puts("0");
-	else {
-		for(i = 0; i < 10; ++i){
-			while(cnt[i]--)
-				cout << i;
+	}
+	int blank = 0;
+	while(blank != 6){
+		blank = 0;
+		for(int i = 0; i < 6; ++i){
+			if(cnt[i]){
+				if(i == 0)
+					cout << 'P';
+				else if(i == 1)
+					cout << 'A';
+				else if(i == 2)
+					cout << 'T';
+				else if(i == 3)
+					cout << 'e';
+				else if(i == 4)
+					cout << 's';
+				else if(i == 5)
+					cout << 't';
+				--cnt[i];
+			}
+			else
+				++blank;
 		}
 	}
-
 	return 0;
 }
